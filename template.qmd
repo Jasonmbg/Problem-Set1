@@ -1,0 +1,138 @@
+---
+title: "Problem set 1"
+author: Efstathios-Iason Vlachavas
+date: 01/29/2024
+format: html
+toc: true
+theme: "darkly"
+editor: visual
+warning: false
+---
+
+## Overview of the Problem set 1 using Quarto
+
+Continue with the requested steps of the report
+
+```{r}
+
+#| define the quadratic function
+
+quadratic_function <- function(a, b, coef_c) {
+
+  print(paste0("You have chosen the quadratic equation ", a, "x^2 + ", b, "x + ", coef_c, "."))
+
+  discriminant <- (b^2) - (4*a*coef_c)
+
+  if(discriminant < 0) {
+    return(paste0("This quadratic equation has no real numbered roots."))
+  }
+  else if(discriminant > 0) {
+    x_int_plus <- (-b + sqrt(discriminant)) / (2*a) # root1
+    x_int_neg <- (-b - sqrt(discriminant)) / (2*a) # root2
+
+    return(paste0("The two x-intercepts for the quadratic equation are ",
+                  x_int_plus, " and ", x_int_neg, "."))
+  }
+  else #discriminant = 0  case
+    x_int <- (-b) / (2*a)
+    return(paste0("The quadratic equation has only one root. This root is ",
+                  x_int))
+}
+
+
+#| Set the parameters
+a <- 1
+b <- -1
+coef_c <- -2
+
+
+quadratic_function(1,-1,-2)
+
+```
+
+Show a graph of f(x) versus x for ∈ (−3,3). Do not show the code, only the graph.
+
+```{r, echo=FALSE}
+
+#| re-define the quadratic formula for producing the plot
+quadratic_equation <- function(x, a, b, coef_c) {
+  return(a * x^2 + b * x + coef_c)
+}
+
+#| Generate x values in the range (-3, 3)
+x_values <- seq(-3, 3, length.out = 100)
+
+#| Calculate y values using the quadratic equation function
+y_values <- quadratic_equation(x_values, a, b, coef_c)
+
+#| Plot the quadratic equation for x in (-3, 3)
+plot(x_values, y_values, type = "l", col = "blue", lwd = 2,
+     main = "Quadratic Equation: f(x) = ax^2 + bx + c",
+     xlab = "x", ylab = "f(x)")
+
+#| Add a horizontal line at y = 0 for reference
+abline(h = 0, col = "red", lty = 2)
+
+
+```
+
+Erase the PDF report and reproduce it but this time using a=1,b=2,c=5.
+
+```{r}
+
+#|Set parameters vol2:
+a <- 1
+b <- 2
+coef_c <- 5
+
+#| recompute the y values 
+
+y_values <- quadratic_equation(x_values, a, b, coef_c)
+
+#| Plot the quadratic equation for x in (-3, 3) and updated parameters
+plot(x_values, y_values, type = "l", col = "blue", lwd = 2,
+     main = "Quadratic Equation: f(x) = ax^2 + bx + c",
+     xlab = "x", ylab = "f(x)")
+
+#| Add a horizontal line at y = 0 for reference
+abline(h = 0, col = "red", lty = 2)
+
+
+```
+
+Erase the PDF report and reproduce it but this time using a=1,b=3,c=2. Change the range of x to range that clearly shows the roots.
+
+```{r}
+
+#| Quadratic equation coefficients
+a <- 1
+b <- 3
+c <- 2
+
+#| Calculate roots
+root1 <- (-b + sqrt(b^2 - 4*a*c)) / (2*a)
+root2 <- (-b - sqrt(b^2 - 4*a*c)) / (2*a)
+
+#| Choose a range around the roots
+x_range <- seq(root1 - 2, root2 + 2, length.out = 100)
+
+#| Evaluate the quadratic equation for the chosen range
+y <- a * x_range^2 + b * x_range + c
+
+#| Plot the quadratic equation
+plot(x_range, y, type = 'l', main = 'Quadratic Equation', xlab = 'x', ylab = 'y')
+abline(h = 0, col = 'red', lty = 2)  # Line at y=0
+points(c(root1, root2), c(0, 0), col = 'blue', pch = 16)  # Mark roots
+legend('topright', legend = c('Quadratic Equation', 'Roots'), col = c('black', 'blue'), lty = 1:1, pch = c(NA, 16))
+
+
+```
+
+Create a markdown page with the results for this last set of values, but this time showing the code.
+
+```{r}
+
+quadratic_function(1,3,2)
+
+
+```
